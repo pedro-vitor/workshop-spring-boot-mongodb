@@ -30,6 +30,12 @@ public class UserService {
 		return repo.insert(user);
 	}
 	
+	public User update(User obj) {
+		User newObj = this.findById(obj.getId());
+		this.updateData(newObj, obj);
+		return repo.save(newObj);
+	}	
+
 	public void delete(String id) {
 		findById(id);
 		repo.deleteById(id);
@@ -37,5 +43,10 @@ public class UserService {
 	
 	public User fromDTO (UserDTO objDTO) {
 		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
+	}
+	
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
 	}
 }
